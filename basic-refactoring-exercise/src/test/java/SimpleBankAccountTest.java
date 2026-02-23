@@ -12,9 +12,9 @@ class SimpleBankAccountTest {
 
     private AccountHolder accountHolder;
     private BankAccount bankAccount;
-    private final int DEPOSIT_AMOUNT = 100;
-    private final int NON_EXISTENT_ACCOUNT_ID = 2;
-    private final int WITHDRAW_AMOUNT = 70;
+    private final static int DEPOSIT_AMOUNT = 100;
+    private final static int NON_EXISTENT_ACCOUNT_ID = 2;
+    private final static int WITHDRAW_AMOUNT = 70;
 
 
     @BeforeEach
@@ -55,5 +55,13 @@ class SimpleBankAccountTest {
         bankAccount.deposit(accountHolder.id(), DEPOSIT_AMOUNT);
         bankAccount.withdraw(NON_EXISTENT_ACCOUNT_ID, WITHDRAW_AMOUNT);
         assertEquals(DEPOSIT_AMOUNT, bankAccount.getBalance());
+    }
+
+    @Test
+    void testWithdrawWithAdditionalFee() {
+        final int differenceMinusFee = 29;
+        bankAccount.deposit(accountHolder.id(), DEPOSIT_AMOUNT);
+        bankAccount.withdraw(accountHolder.id(), WITHDRAW_AMOUNT);
+        assertEquals(differenceMinusFee, bankAccount.getBalance());
     }
 }
