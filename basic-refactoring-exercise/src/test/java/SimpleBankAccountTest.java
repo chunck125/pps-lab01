@@ -2,6 +2,7 @@ import example.model.AccountHolder;
 import example.model.BankAccount;
 import example.model.SimpleBankAccount;
 
+import example.model.SimpleBankAccountWithFee;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,8 +61,9 @@ class SimpleBankAccountTest {
     @Test
     void testWithdrawWithAdditionalFee() {
         final int differenceMinusFee = 29;
-        bankAccount.deposit(accountHolder.id(), DEPOSIT_AMOUNT);
-        bankAccount.withdraw(accountHolder.id(), WITHDRAW_AMOUNT);
-        assertEquals(differenceMinusFee, bankAccount.getBalance());
+        SimpleBankAccountWithFee bankAccountWithFee = new SimpleBankAccountWithFee(accountHolder, 0);
+        bankAccountWithFee.deposit(accountHolder.id(), DEPOSIT_AMOUNT);
+        bankAccountWithFee.withdraw(accountHolder.id(), WITHDRAW_AMOUNT);
+        assertEquals(differenceMinusFee, bankAccountWithFee.getBalance());
     }
 }
